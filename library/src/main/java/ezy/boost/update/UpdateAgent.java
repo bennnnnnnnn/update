@@ -58,6 +58,7 @@ public class UpdateAgent {
     private File mUpdateFile;
     private boolean mIsManual = false;
     private boolean mIsWifiOnly = false;
+    private String mRequestMode = RequestMode.GET;
 
     private UpdateInfo mInfo;
     private UpdateError mError = null;
@@ -69,11 +70,12 @@ public class UpdateAgent {
     private OnProgressListener mOnProgressListener;
     private OnProgressListener mOnNotificationListener;
 
-    public UpdateAgent(Context context, String url, boolean isManual, boolean isWifiOnly) {
+    public UpdateAgent(Context context, String url, boolean isManual, boolean isWifiOnly, String requestMode) {
         mContext = context;
         mUrl = url;
         mIsManual = isManual;
         mIsWifiOnly = isWifiOnly;
+        mRequestMode = requestMode;
         mOnPromptListener = new OnPrompt(context);
         mOnFailureListener = new OnFailure(context);
 
@@ -94,6 +96,10 @@ public class UpdateAgent {
 
     public UpdateError getError() {
         return mError;
+    }
+
+    public String getRequestMode() {
+        return mRequestMode;
     }
 
     public void setError(UpdateError error) {
@@ -434,15 +440,15 @@ public class UpdateAgent {
         public void onClick(DialogInterface dialog, int which) {
 
             switch (which) {
-            case DialogInterface.BUTTON_POSITIVE:
-                mAgent.update();
-                break;
-            case DialogInterface.BUTTON_NEUTRAL:
-                mAgent.ignore();
-                break;
-            case DialogInterface.BUTTON_NEGATIVE:
-                // not now
-                break;
+                case DialogInterface.BUTTON_POSITIVE:
+                    mAgent.update();
+                    break;
+                case DialogInterface.BUTTON_NEUTRAL:
+                    mAgent.ignore();
+                    break;
+                case DialogInterface.BUTTON_NEGATIVE:
+                    // not now
+                    break;
             }
             if (mIsAutoDismiss) {
                 dialog.dismiss();

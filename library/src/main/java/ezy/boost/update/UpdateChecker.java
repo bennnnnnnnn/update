@@ -25,6 +25,7 @@ import java.net.URL;
 class UpdateChecker extends AsyncTask<Void, Integer, Void> {
 
     final UpdateAgent mAgent;
+
     public UpdateChecker(UpdateAgent agent) {
         mAgent = agent;
     }
@@ -35,6 +36,7 @@ class UpdateChecker extends AsyncTask<Void, Integer, Void> {
         try {
             connection = (HttpURLConnection) new URL(mAgent.getUrl()).openConnection();
             connection.setRequestProperty("Accept", "application/json");
+            connection.setRequestMethod(mAgent.getRequestMode());
             connection.connect();
             if (connection.getResponseCode() == HttpURLConnection.HTTP_OK) {
                 mAgent.parse(UpdateUtil.readString(connection.getInputStream()));

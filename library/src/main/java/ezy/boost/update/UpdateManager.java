@@ -69,6 +69,7 @@ public class UpdateManager {
         private boolean mIsManual;
         private boolean mIsWifiOnly;
         private int mNotifyId = 0;
+        private String mRequestMode = RequestMode.GET;
         private UpdateAgent.OnProgressListener mOnNotifyListener;
         private UpdateAgent.OnProgressListener mOnProgressListener;
         private UpdateAgent.OnPromptListener mOnPromptListener;
@@ -109,6 +110,11 @@ public class UpdateManager {
             return this;
         }
 
+        public Builder setRequestMode(String requestMode) {
+            mRequestMode = requestMode;
+            return this;
+        }
+
         public Builder setOnProgress(UpdateAgent.OnProgressListener listener) {
             mOnProgressListener = listener;
             return this;
@@ -137,7 +143,7 @@ public class UpdateManager {
                 mUrl = UpdateUtil.toCheckUrl(mContext, sUrl, sChannel);
             }
 
-            UpdateAgent agent = new UpdateAgent(mContext, mUrl, mIsManual, mIsWifiOnly);
+            UpdateAgent agent = new UpdateAgent(mContext, mUrl, mIsManual, mIsWifiOnly,mRequestMode);
             agent.setInfoParser(mParser);
             if (mOnNotifyListener != null) {
                 agent.setNotifyListener(mOnNotifyListener);

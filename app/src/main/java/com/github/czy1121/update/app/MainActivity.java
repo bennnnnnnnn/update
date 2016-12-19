@@ -16,6 +16,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     String mCheckUrl = "http://client.waimai.baidu.com/message/updatetag";
 
     String mUpdateUrl = "http://mobile.ac.qq.com/qqcomic_android.apk";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -58,25 +59,25 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-        case R.id.check_update:
-            check(true, true, false, false, true, 998);
-            break;
-        case R.id.check_update_cant_ignore:
-            check(true, true, false, false, false, 998);
-            break;
-        case R.id.check_update_force:
-            check(true, true, true, false, true, 998);
-            break;
-        case R.id.check_update_no_newer:
-            check(true, false, false, false, true, 998);
-            break;
-        case R.id.check_update_silent:
-            check(true, true, false, true, true, 998);
-            break;
-        case R.id.clean:
-            UpdateUtil.clean(this);
-            Toast.makeText(this, "cleared", Toast.LENGTH_LONG).show();
-            break;
+            case R.id.check_update:
+                check(true, true, false, false, true, 998);
+                break;
+            case R.id.check_update_cant_ignore:
+                check(true, true, false, false, false, 998);
+                break;
+            case R.id.check_update_force:
+                check(true, true, true, false, true, 998);
+                break;
+            case R.id.check_update_no_newer:
+                check(true, false, false, false, true, 998);
+                break;
+            case R.id.check_update_silent:
+                check(true, true, false, true, true, 998);
+                break;
+            case R.id.clean:
+                UpdateUtil.clean(this);
+                Toast.makeText(this, "cleared", Toast.LENGTH_LONG).show();
+                break;
         }
     }
 }
